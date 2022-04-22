@@ -1,0 +1,1300 @@
+---
+layout: default
+title: Ceph perf 15.2.16
+---
+<h1>Ceph bench 15.2.16</h1>
+<p>
+    Backend info: 3 backend hosts, 40gbps NIC, 24 NVME, ceph 15.2.16 from eucephcom
+</p>
+<p>
+    Client info: 4 client hosts, 40gbps NIC, ceph 16.2.7 from eucephcom
+</p>
+<p>
+    Config info: noscrub, nodeep-scrub, 1024PG, balancer off, pg autoscaler off
+</p>
+<p>
+Test info: 128 RBD images each 128GB, each client runs fio tests against 32 RBD images.
+Images are fully pre-written.
+Each fio test is executed for 15 mins. Each suite conist 25 fio runs.
+Each suite is repeated 3 times, thus 3 results.
+<pre>
+- {blocksize: 4k, iodepth: 4, rw: randrw, rwmixread: 0}
+- {blocksize: 4k, iodepth: 4, rw: randrw, rwmixread: 10}
+- {blocksize: 4k, iodepth: 4, rw: randrw, rwmixread: 50}
+- {blocksize: 4k, iodepth: 4, rw: randrw, rwmixread: 90}
+- {blocksize: 4k, iodepth: 4, rw: randrw, rwmixread: 100}
+- {blocksize: 4k, iodepth: 32, rw: randrw, rwmixread: 0}
+- {blocksize: 4k, iodepth: 32, rw: randrw, rwmixread: 10}
+- {blocksize: 4k, iodepth: 32, rw: randrw, rwmixread: 50}
+- {blocksize: 4k, iodepth: 32, rw: randrw, rwmixread: 90}
+- {blocksize: 4k, iodepth: 32, rw: randrw, rwmixread: 100}
+- {blocksize: 4k, iodepth: 64, rw: randrw, rwmixread: 0}
+- {blocksize: 4k, iodepth: 64, rw: randrw, rwmixread: 10}
+- {blocksize: 4k, iodepth: 64, rw: randrw, rwmixread: 50}
+- {blocksize: 4k, iodepth: 64, rw: randrw, rwmixread: 90}
+- {blocksize: 4k, iodepth: 64, rw: randrw, rwmixread: 100}
+- {blocksize: 64k, iodepth: 4, rw: rw, rwmixread: 0}
+- {blocksize: 64k, iodepth: 4, rw: rw, rwmixread: 10}
+- {blocksize: 64k, iodepth: 4, rw: rw, rwmixread: 50}
+- {blocksize: 64k, iodepth: 4, rw: rw, rwmixread: 90}
+- {blocksize: 64k, iodepth: 4, rw: rw, rwmixread: 100}
+- {blocksize: 64k, iodepth: 64, rw: rw, rwmixread: 0}
+- {blocksize: 64k, iodepth: 64, rw: rw, rwmixread: 10}
+- {blocksize: 64k, iodepth: 64, rw: rw, rwmixread: 50}
+- {blocksize: 64k, iodepth: 64, rw: rw, rwmixread: 90}
+- {blocksize: 64k, iodepth: 64, rw: rw, rwmixread: 100}
+</pre>
+</p>
+
+
+<style>
+    .ops-reads {
+      color: rgb(63, 146, 214);
+    }
+    .ops-writes {
+      color: rgb(216, 140, 0)
+    }
+    .perf-lower {
+      background-color: rgb(255, 128, 128)
+    }
+    .perf-higher {
+      background-color: rgb(137, 211, 122)
+    }
+  </style>
+    
+    <div>
+      <h3>1648593414-15.2.16-eucephcom</h3>
+        <table class="table table-bordered" style="text-align: right;">
+          <tr>
+          <th></th>
+          
+            <th>0%R</th>
+          
+            <th>10%R</th>
+          
+            <th>50%R</th>
+          
+            <th>90%R</th>
+          
+            <th>100%R</th>
+          
+          </tr>
+          
+            <tr class="ops-reads">
+              <td>4k 4 randrw R</td>
+              
+                <td>0</td>
+              
+                <td>8 146</td>
+              
+                <td>64 935</td>
+              
+                <td>299 273</td>
+              
+                <td>655 803</td>
+              
+            </tr>
+            <tr class="ops-writes">
+              <td>4k 4 randrw W</td>
+              
+                <td>75 673</td>
+              
+                <td>73 780</td>
+              
+                <td>64 939</td>
+              
+                <td>33 186</td>
+              
+                <td>0</td>
+              
+            </tr>
+          
+            <tr class="ops-reads">
+              <td>4k 32 randrw R</td>
+              
+                <td>0</td>
+              
+                <td>9 979</td>
+              
+                <td>81 799</td>
+              
+                <td>330 847</td>
+              
+                <td>642 836</td>
+              
+            </tr>
+            <tr class="ops-writes">
+              <td>4k 32 randrw W</td>
+              
+                <td>93 731</td>
+              
+                <td>90 339</td>
+              
+                <td>81 809</td>
+              
+                <td>36 704</td>
+              
+                <td>0</td>
+              
+            </tr>
+          
+            <tr class="ops-reads">
+              <td>4k 64 randrw R</td>
+              
+                <td>0</td>
+              
+                <td>10 422</td>
+              
+                <td>85 107</td>
+              
+                <td>338 107</td>
+              
+                <td>654 227</td>
+              
+            </tr>
+            <tr class="ops-writes">
+              <td>4k 64 randrw W</td>
+              
+                <td>96 685</td>
+              
+                <td>94 274</td>
+              
+                <td>85 104</td>
+              
+                <td>37 499</td>
+              
+                <td>0</td>
+              
+            </tr>
+          
+            <tr class="ops-reads">
+              <td>64k 4 rw R</td>
+              
+                <td>0</td>
+              
+                <td>6 338</td>
+              
+                <td>56 715</td>
+              
+                <td>166 919</td>
+              
+                <td>199 139</td>
+              
+            </tr>
+            <tr class="ops-writes">
+              <td>64k 4 rw W</td>
+              
+                <td>63 844</td>
+              
+                <td>57 530</td>
+              
+                <td>56 719</td>
+              
+                <td>18 487</td>
+              
+                <td>0</td>
+              
+            </tr>
+          
+            <tr class="ops-reads">
+              <td>64k 64 rw R</td>
+              
+                <td>0</td>
+              
+                <td>7 552</td>
+              
+                <td>66 368</td>
+              
+                <td>164 698</td>
+              
+                <td>198 788</td>
+              
+            </tr>
+            <tr class="ops-writes">
+              <td>64k 64 rw W</td>
+              
+                <td>68 545</td>
+              
+                <td>68 475</td>
+              
+                <td>66 354</td>
+              
+                <td>18 242</td>
+              
+                <td>0</td>
+              
+            </tr>
+          
+
+        </table>
+        
+      </div>
+
+    
+    <div>
+      <h3>1648616267-15.2.16-eucephcom</h3>
+        <table class="table table-bordered" style="text-align: right;">
+          <tr>
+          <th></th>
+          
+            <th>0%R</th>
+          
+            <th>10%R</th>
+          
+            <th>50%R</th>
+          
+            <th>90%R</th>
+          
+            <th>100%R</th>
+          
+          </tr>
+          
+            <tr class="ops-reads">
+              <td>4k 4 randrw R</td>
+              
+                <td>0</td>
+              
+                <td>7 995</td>
+              
+                <td>63 702</td>
+              
+                <td>294 478</td>
+              
+                <td>657 728</td>
+              
+            </tr>
+            <tr class="ops-writes">
+              <td>4k 4 randrw W</td>
+              
+                <td>74 935</td>
+              
+                <td>72 491</td>
+              
+                <td>63 709</td>
+              
+                <td>32 659</td>
+              
+                <td>0</td>
+              
+            </tr>
+          
+            <tr class="ops-reads">
+              <td>4k 32 randrw R</td>
+              
+                <td>0</td>
+              
+                <td>9 905</td>
+              
+                <td>80 661</td>
+              
+                <td>327 014</td>
+              
+                <td>638 094</td>
+              
+            </tr>
+            <tr class="ops-writes">
+              <td>4k 32 randrw W</td>
+              
+                <td>92 797</td>
+              
+                <td>89 610</td>
+              
+                <td>80 672</td>
+              
+                <td>36 284</td>
+              
+                <td>0</td>
+              
+            </tr>
+          
+            <tr class="ops-reads">
+              <td>4k 64 randrw R</td>
+              
+                <td>0</td>
+              
+                <td>10 275</td>
+              
+                <td>83 498</td>
+              
+                <td>334 832</td>
+              
+                <td>644 877</td>
+              
+            </tr>
+            <tr class="ops-writes">
+              <td>4k 64 randrw W</td>
+              
+                <td>94 896</td>
+              
+                <td>92 980</td>
+              
+                <td>83 496</td>
+              
+                <td>37 154</td>
+              
+                <td>0</td>
+              
+            </tr>
+          
+            <tr class="ops-reads">
+              <td>64k 4 rw R</td>
+              
+                <td>0</td>
+              
+                <td>7 107</td>
+              
+                <td>60 164</td>
+              
+                <td>166 623</td>
+              
+                <td>199 756</td>
+              
+            </tr>
+            <tr class="ops-writes">
+              <td>64k 4 rw W</td>
+              
+                <td>58 405</td>
+              
+                <td>64 455</td>
+              
+                <td>60 159</td>
+              
+                <td>18 454</td>
+              
+                <td>0</td>
+              
+            </tr>
+          
+            <tr class="ops-reads">
+              <td>64k 64 rw R</td>
+              
+                <td>0</td>
+              
+                <td>7 596</td>
+              
+                <td>66 504</td>
+              
+                <td>165 214</td>
+              
+                <td>198 705</td>
+              
+            </tr>
+            <tr class="ops-writes">
+              <td>64k 64 rw W</td>
+              
+                <td>68 720</td>
+              
+                <td>68 852</td>
+              
+                <td>66 521</td>
+              
+                <td>18 296</td>
+              
+                <td>0</td>
+              
+            </tr>
+          
+
+        </table>
+        
+        <h4>Relative performance (compared to 1st result)</h4>
+        <table class="table table-bordered" style="text-align: right;">
+          <tr>
+          <th></th>
+          
+            <th>0%R</th>
+          
+            <th>10%R</th>
+          
+            <th>50%R</th>
+          
+            <th>90%R</th>
+          
+            <th>100%R</th>
+          
+          </tr>
+          
+            <tr style=''>
+              <td>4k 4qd randrw R</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+                
+                
+                  <td>
+                
+                -1.86</td>
+              
+                
+                
+                  <td>
+                
+                -1.90</td>
+              
+                
+                
+                  <td>
+                
+                -1.60</td>
+              
+                
+                
+                  <td>
+                
+                0.29</td>
+              
+            </tr>
+            <tr style=''>
+              <td>4k 4qd randrw W</td>
+              
+                
+                
+                  <td>
+                
+                -0.98</td>
+              
+                
+                
+                  <td>
+                
+                -1.75</td>
+              
+                
+                
+                  <td>
+                
+                -1.89</td>
+              
+                
+                
+                  <td>
+                
+                -1.59</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+            </tr>
+          
+            <tr style=''>
+              <td>4k 32qd randrw R</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+                
+                
+                  <td>
+                
+                -0.74</td>
+              
+                
+                
+                  <td>
+                
+                -1.39</td>
+              
+                
+                
+                  <td>
+                
+                -1.16</td>
+              
+                
+                
+                  <td>
+                
+                -0.74</td>
+              
+            </tr>
+            <tr style=''>
+              <td>4k 32qd randrw W</td>
+              
+                
+                
+                  <td>
+                
+                -1.00</td>
+              
+                
+                
+                  <td>
+                
+                -0.81</td>
+              
+                
+                
+                  <td>
+                
+                -1.39</td>
+              
+                
+                
+                  <td>
+                
+                -1.14</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+            </tr>
+          
+            <tr style=''>
+              <td>4k 64qd randrw R</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+                
+                
+                  <td>
+                
+                -1.41</td>
+              
+                
+                
+                  <td>
+                
+                -1.89</td>
+              
+                
+                
+                  <td>
+                
+                -0.97</td>
+              
+                
+                
+                  <td>
+                
+                -1.43</td>
+              
+            </tr>
+            <tr style=''>
+              <td>4k 64qd randrw W</td>
+              
+                
+                
+                  <td>
+                
+                -1.85</td>
+              
+                
+                
+                  <td>
+                
+                -1.37</td>
+              
+                
+                
+                  <td>
+                
+                -1.89</td>
+              
+                
+                
+                  <td>
+                
+                -0.92</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+            </tr>
+          
+            <tr style=''>
+              <td>64k 4qd rw R</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+                
+                
+                  <td class="perf-higher">
+                
+                12.13</td>
+              
+                
+                
+                  <td class="perf-higher">
+                
+                6.08</td>
+              
+                
+                
+                  <td>
+                
+                -0.18</td>
+              
+                
+                
+                  <td>
+                
+                0.31</td>
+              
+            </tr>
+            <tr style=''>
+              <td>64k 4qd rw W</td>
+              
+                
+                
+                  <td class="perf-lower">
+                
+                -8.52</td>
+              
+                
+                
+                  <td class="perf-higher">
+                
+                12.04</td>
+              
+                
+                
+                  <td class="perf-higher">
+                
+                6.07</td>
+              
+                
+                
+                  <td>
+                
+                -0.18</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+            </tr>
+          
+            <tr style=''>
+              <td>64k 64qd rw R</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+                
+                
+                  <td>
+                
+                0.59</td>
+              
+                
+                
+                  <td>
+                
+                0.21</td>
+              
+                
+                
+                  <td>
+                
+                0.31</td>
+              
+                
+                
+                  <td>
+                
+                -0.04</td>
+              
+            </tr>
+            <tr style=''>
+              <td>64k 64qd rw W</td>
+              
+                
+                
+                  <td>
+                
+                0.26</td>
+              
+                
+                
+                  <td>
+                
+                0.55</td>
+              
+                
+                
+                  <td>
+                
+                0.25</td>
+              
+                
+                
+                  <td>
+                
+                0.29</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+            </tr>
+          
+
+        </table>
+        
+      </div>
+
+    
+    <div>
+      <h3>1648639114-15.2.16-eucephcom</h3>
+        <table class="table table-bordered" style="text-align: right;">
+          <tr>
+          <th></th>
+          
+            <th>0%R</th>
+          
+            <th>10%R</th>
+          
+            <th>50%R</th>
+          
+            <th>90%R</th>
+          
+            <th>100%R</th>
+          
+          </tr>
+          
+            <tr class="ops-reads">
+              <td>4k 4 randrw R</td>
+              
+                <td>0</td>
+              
+                <td>7 878</td>
+              
+                <td>63 695</td>
+              
+                <td>293 060</td>
+              
+                <td>641 125</td>
+              
+            </tr>
+            <tr class="ops-writes">
+              <td>4k 4 randrw W</td>
+              
+                <td>74 201</td>
+              
+                <td>71 413</td>
+              
+                <td>63 722</td>
+              
+                <td>32 501</td>
+              
+                <td>0</td>
+              
+            </tr>
+          
+            <tr class="ops-reads">
+              <td>4k 32 randrw R</td>
+              
+                <td>0</td>
+              
+                <td>9 791</td>
+              
+                <td>79 713</td>
+              
+                <td>326 380</td>
+              
+                <td>635 233</td>
+              
+            </tr>
+            <tr class="ops-writes">
+              <td>4k 32 randrw W</td>
+              
+                <td>90 952</td>
+              
+                <td>88 616</td>
+              
+                <td>79 717</td>
+              
+                <td>36 198</td>
+              
+                <td>0</td>
+              
+            </tr>
+          
+            <tr class="ops-reads">
+              <td>4k 64 randrw R</td>
+              
+                <td>0</td>
+              
+                <td>10 146</td>
+              
+                <td>83 179</td>
+              
+                <td>334 247</td>
+              
+                <td>640 901</td>
+              
+            </tr>
+            <tr class="ops-writes">
+              <td>4k 64 randrw W</td>
+              
+                <td>94 312</td>
+              
+                <td>91 802</td>
+              
+                <td>83 197</td>
+              
+                <td>37 081</td>
+              
+                <td>0</td>
+              
+            </tr>
+          
+            <tr class="ops-reads">
+              <td>64k 4 rw R</td>
+              
+                <td>0</td>
+              
+                <td>6 250</td>
+              
+                <td>55 128</td>
+              
+                <td>166 905</td>
+              
+                <td>199 698</td>
+              
+            </tr>
+            <tr class="ops-writes">
+              <td>64k 4 rw W</td>
+              
+                <td>54 795</td>
+              
+                <td>56 751</td>
+              
+                <td>55 123</td>
+              
+                <td>18 497</td>
+              
+                <td>0</td>
+              
+            </tr>
+          
+            <tr class="ops-reads">
+              <td>64k 64 rw R</td>
+              
+                <td>0</td>
+              
+                <td>7 593</td>
+              
+                <td>66 470</td>
+              
+                <td>165 201</td>
+              
+                <td>199 692</td>
+              
+            </tr>
+            <tr class="ops-writes">
+              <td>64k 64 rw W</td>
+              
+                <td>68 778</td>
+              
+                <td>68 785</td>
+              
+                <td>66 460</td>
+              
+                <td>18 300</td>
+              
+                <td>0</td>
+              
+            </tr>
+          
+
+        </table>
+        
+        <h4>Relative performance (compared to 1st result)</h4>
+        <table class="table table-bordered" style="text-align: right;">
+          <tr>
+          <th></th>
+          
+            <th>0%R</th>
+          
+            <th>10%R</th>
+          
+            <th>50%R</th>
+          
+            <th>90%R</th>
+          
+            <th>100%R</th>
+          
+          </tr>
+          
+            <tr style=''>
+              <td>4k 4qd randrw R</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+                
+                
+                  <td>
+                
+                -3.29</td>
+              
+                
+                
+                  <td>
+                
+                -1.91</td>
+              
+                
+                
+                  <td>
+                
+                -2.08</td>
+              
+                
+                
+                  <td>
+                
+                -2.24</td>
+              
+            </tr>
+            <tr style=''>
+              <td>4k 4qd randrw W</td>
+              
+                
+                
+                  <td>
+                
+                -1.95</td>
+              
+                
+                
+                  <td>
+                
+                -3.21</td>
+              
+                
+                
+                  <td>
+                
+                -1.87</td>
+              
+                
+                
+                  <td>
+                
+                -2.07</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+            </tr>
+          
+            <tr style=''>
+              <td>4k 32qd randrw R</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+                
+                
+                  <td>
+                
+                -1.88</td>
+              
+                
+                
+                  <td>
+                
+                -2.55</td>
+              
+                
+                
+                  <td>
+                
+                -1.35</td>
+              
+                
+                
+                  <td>
+                
+                -1.18</td>
+              
+            </tr>
+            <tr style=''>
+              <td>4k 32qd randrw W</td>
+              
+                
+                
+                  <td>
+                
+                -2.97</td>
+              
+                
+                
+                  <td>
+                
+                -1.91</td>
+              
+                
+                
+                  <td>
+                
+                -2.56</td>
+              
+                
+                
+                  <td>
+                
+                -1.38</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+            </tr>
+          
+            <tr style=''>
+              <td>4k 64qd randrw R</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+                
+                
+                  <td>
+                
+                -2.65</td>
+              
+                
+                
+                  <td>
+                
+                -2.27</td>
+              
+                
+                
+                  <td>
+                
+                -1.14</td>
+              
+                
+                
+                  <td>
+                
+                -2.04</td>
+              
+            </tr>
+            <tr style=''>
+              <td>4k 64qd randrw W</td>
+              
+                
+                
+                  <td>
+                
+                -2.45</td>
+              
+                
+                
+                  <td>
+                
+                -2.62</td>
+              
+                
+                
+                  <td>
+                
+                -2.24</td>
+              
+                
+                
+                  <td>
+                
+                -1.11</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+            </tr>
+          
+            <tr style=''>
+              <td>64k 4qd rw R</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+                
+                
+                  <td>
+                
+                -1.39</td>
+              
+                
+                
+                  <td>
+                
+                -2.80</td>
+              
+                
+                
+                  <td>
+                
+                -0.01</td>
+              
+                
+                
+                  <td>
+                
+                0.28</td>
+              
+            </tr>
+            <tr style=''>
+              <td>64k 4qd rw W</td>
+              
+                
+                
+                  <td class="perf-lower">
+                
+                -14.17</td>
+              
+                
+                
+                  <td>
+                
+                -1.35</td>
+              
+                
+                
+                  <td>
+                
+                -2.81</td>
+              
+                
+                
+                  <td>
+                
+                0.05</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+            </tr>
+          
+            <tr style=''>
+              <td>64k 64qd rw R</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+                
+                
+                  <td>
+                
+                0.54</td>
+              
+                
+                
+                  <td>
+                
+                0.15</td>
+              
+                
+                
+                  <td>
+                
+                0.31</td>
+              
+                
+                
+                  <td>
+                
+                0.45</td>
+              
+            </tr>
+            <tr style=''>
+              <td>64k 64qd rw W</td>
+              
+                
+                
+                  <td>
+                
+                0.34</td>
+              
+                
+                
+                  <td>
+                
+                0.45</td>
+              
+                
+                
+                  <td>
+                
+                0.16</td>
+              
+                
+                
+                  <td>
+                
+                0.31</td>
+              
+                
+                
+                  <td>
+                
+                0.00</td>
+              
+            </tr>
+          
+
+        </table>
+        
+      </div>
+
