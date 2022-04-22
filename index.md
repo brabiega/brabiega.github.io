@@ -1,4 +1,5 @@
-# Testing testing
-## One two three
+# Bartoszer's notes
+## Ceph stuff
+[Ceph](/ceph/ceph.html)
 
 
